@@ -19,6 +19,9 @@ function Header() {
         </Link>
         {user ? (
           <>
+           <Link to="/room" className="text-decoration-none text-dark">
+              Room
+            </Link>
              <Link to="/create/room" className="text-decoration-none text-dark">
               create
             </Link>
@@ -26,6 +29,7 @@ function Header() {
           </>
         ) : (
           <>
+        
             <Link to="/login" className="text-decoration-none text-dark">
               Login
             </Link>

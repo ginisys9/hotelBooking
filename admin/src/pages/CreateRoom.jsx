@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import {uploadImage} from '../util/utils'
+import { createRoom,reset } from "../auth/roomSlice";
 function CreateRoom() {
    const navigate  = useNavigate();
+   const dispatch = useDispatch();
    const {user} =  useSelector((state)=>state.auth)
+   const {isSuccess,rooms} = useSelector((state)=>state.room)
    const [file,setFile] = useState("")
    const [form,setForm] = useState({
     name:"",
     price:"",
-    des:"",
+    description:"",
     roomNumber:"757, 464, 354, 299"
    })
    const changeHandler = (e) =>{
@@ -20,12 +23,18 @@ function CreateRoom() {
         [name]:value
       }))
    }
-   const {name,price,des,roomNumber} = form;
+   const {name,price,description,roomNumber} = form;
    useEffect(()=>{
     if (!user) {
         navigate('/login')
     }
    },[user])
+   useEffect(()=>{
+    if (isSuccess) {
+        dispatch(reset())
+       navigate('/dashbaord')
+    }
+   },[isSuccess])
    const fileHandler = (e) =>{
        setFile(e.target.files)
    }
@@ -40,21 +49,23 @@ function CreateRoom() {
          unavailbaleDate:[]
      }
    });
-     // upload image into the cloudnary
+     // upload image into the cloudinary
      let list = [];
-     list = await Promise.all(Object.values(file).map(async (file)=>{
-        const url = await uploadImage(file)
+     list = await Promise.all(Object.values(file).map(async (fileValue)=>{
+        const url = await uploadImage(fileValue)
+       
          return url
      }))
      const dataToSubmit = {
       name,
       price,
-      des,
+      description,
       roomNumber:roomArray,
       img:list
      }
+   
      // dispatch the data
-
+      dispatch(createRoom(dataToSubmit))
    }
   
   
@@ -89,8 +100,8 @@ function CreateRoom() {
           <textarea
             type="text"
             rows='3'
-             name='des'
-            value={form.des}
+             name='description'
+            value={form.description}
             onChange={changeHandler}
             className="form-control"
             placeholder="Enter Description room "
