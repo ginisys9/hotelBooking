@@ -1,0 +1,10 @@
+const express = require("express")
+const router = express.Router()
+const {auth} = require("../middleware/auth")
+const bookingController = require("../controller/book")
+router.post("/create",auth,bookingController.createBooking)
+router.get("/getbooking",auth,bookingController.getBooking)
+router.put("/:id",auth,bookingController.updateBooking)
+router.delete("/:id",auth,bookingController.deleteBooking)
+router.get("/:id",bookingController.singleBooking)
+module.exports = router
