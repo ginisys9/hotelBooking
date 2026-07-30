@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Header from './component/Header'
 import Dashboard from './pages/Dashboard'
+import CreateRoom from './pages/CreateRoom'
 function App() {
     
   return (
@@ -15,7 +16,8 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path='/dashbaord' element={<Dashboard/>}/>
-
+      <Route path='/create/room' element={<CreateRoom/>}/>
+      
     </Routes>
     </Router>
   )
