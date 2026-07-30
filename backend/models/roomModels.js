@@ -17,6 +17,10 @@ const roomSchema = new mongoose.Schema({
             number:Number,
             unavailbaleDate:[Date]
         }]
+    },
+    img:{
+        type:[String],
+        default:[]
     }
 })
 module.exports = mongoose.model("Room",roomSchema)
