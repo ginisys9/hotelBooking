@@ -19,7 +19,7 @@ function Room() {
   }
   return (
     <div>
-      {room.length > 0 ? <RoomList data={room}/>: null}
+      {room.length > 0 ? <RoomList room={room}/>: null}
     </div>
   )
 }
