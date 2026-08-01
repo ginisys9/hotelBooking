@@ -38,7 +38,38 @@ export const getRoom = createAsyncThunk("getRooms",async (userData,thunkApi) => 
       
      }
 })
-
+export const editRoom = createAsyncThunk('/editRoom',async function(roomData,thunkApi) {
+    try {
+        const {roomId,...rest} = roomData
+         const res = await fetch(`http://localhost:3000/room/${roomId}`,{
+              credentials: "include",
+                 headers:{
+                    'Content-Type':"application/json"
+                 },
+                method:"PUT",
+                body:JSON.stringify(rest)
+         })
+         const data = await res.json()
+          return data;
+    } catch (error) {
+           return thunkApi.rejectWithValue(error)
+    }
+})
+export const deleteRoom = createAsyncThunk("/delete/room",async (id,thunkApi) => {
+    try {
+            const res = await fetch(`http://localhost:3000/room/${id}`,{
+                method:"DELETE",
+                credentials: "include",
+                 headers:{
+                    'Content-Type':"application/json"
+                 },
+            })
+            const data = await res.json()
+            return data
+    } catch (error) {
+          return thunkApi.rejectWithValue(error)
+    }
+})
 export const roomSlice = createSlice({
     name:"room",
    initialState,
@@ -75,6 +106,34 @@ export const roomSlice = createSlice({
          state.room = action.payload
      })
      .addCase(getRoom.rejected,(state,action)=>{
+         state.isLoading = false,
+         state.isError = true,
+         state.message = action.payload
+     })
+     // edit Room 
+     .addCase(editRoom.pending,(state)=>{
+         state.isLoading = true
+     })
+     .addCase(editRoom.fulfilled,(state,action)=>{
+          state.isLoading = false,
+         state.isSuccess = true,
+         state.room = action.payload
+     })
+     .addCase(editRoom.rejected,(state,action)=>{
+         state.isLoading = false,
+         state.isError = true,
+         state.message = action.payload
+     })
+     // delete room
+      .addCase(deleteRoom.pending,(state)=>{
+         state.isLoading = true
+     })
+     .addCase(deleteRoom.fulfilled,(state,action)=>{
+          state.isLoading = false,
+         state.isSuccess = true,
+         state.room = state.room.filter((room)=>room._id !=action.payload._id)
+     })
+     .addCase(deleteRoom.rejected,(state,action)=>{
          state.isLoading = false,
          state.isError = true,
          state.message = action.payload

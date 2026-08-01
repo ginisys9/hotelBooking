@@ -1,34 +1,59 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { reset } from "../auth/roomSlice"
+import { deleteRoom } from "../auth/roomSlice"
 
 function SingleRoom() {
     const { id } = useParams()
+    const {user} = useSelector((state)=>state.auth)
+    const {isSuccess} = useSelector((state)=>state.room)
+
     const [room,setRoom] = useState("")
-    console.log(id)
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
     useEffect(() => {
         const getRoom = async () => {
+          dispatch(reset())
             try {
                 const res = await fetch(`http://localhost:3000/room/${id}`)
                 const data = await res.json()
                 setRoom(data)
-            } catch (error) {
-                console.log(error)
+            }catch (error) {
+              console.log(error)
             }
         }
         getRoom()
     }, [])
-  
-  console.log(room)
+      useEffect(()=>{
+        if (isSuccess) {
+          navigate('/room')
+          dispatch(reset())
+        }
+      },[isSuccess])
+   const handleClick = function(){
+        dispatch(deleteRoom(id))
+   }
+
     return (
-    <div className=" container mt-5">
+  <div className=" container mt-5">
    
-  <div className="card-body">
-     <img src={room?.img?.[0]} alt="" width='90%' height='100%'/>
-    <p className="card-text mt-4 text-center">{room.name}</p>
-    <h4 className="text-center">{room.description}</h4>
-    <h2 className="text-center"> Rs {room.price.toFixed(2)}</h2>
-  </div>
+<div className="card-body text-center">
+  <img src={room?.img?.[0]} alt="" width="90%" height="90%" />
+
+  <p className="card-text mt-4">{room.name}</p>
+  <h4>{room.description}</h4>
+  <h2>Rs {room?.price?.toFixed(2)}</h2>
+
+  <Link
+    to={`/room/edit/${room._id}`}
+    className=" text-decoration-none color mt-3"
+  >
+    Edit Room
+  </Link>
+  { user.user.isAdmin ? <button onClick={handleClick} className="ms-3">Delete Room</button>:"don't show"}
+</div>
 </div>
     )
 }

@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard'
 import CreateRoom from './pages/CreateRoom'
 import Room from './pages/Room'
 import SingleRoom from './pages/SingleRoom'
+import EditRoom from './pages/EditRoom'
 function App() {
     
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path='/room' element={<Room/>}/>
       <Route path='/create/room' element={<CreateRoom/>}/>
       <Route path='/room/all/:id' element={<SingleRoom/>}/>
+      <Route path='/room/edit/:id' element={<EditRoom/>}/>
 
     </Routes>
     </Router>
