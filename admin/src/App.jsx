@@ -9,6 +9,7 @@ import CreateRoom from './pages/CreateRoom'
 import Room from './pages/Room'
 import SingleRoom from './pages/SingleRoom'
 import EditRoom from './pages/EditRoom'
+import NewBooking from './pages/NewBooking'
 function App() {
     
   return (
@@ -19,11 +20,12 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
-      <Route path='/dashbaord' element={<Dashboard/>}/>
+      <Route path='/dashboard' element={<Dashboard/>}/>
       <Route path='/room' element={<Room/>}/>
       <Route path='/create/room' element={<CreateRoom/>}/>
       <Route path='/room/all/:id' element={<SingleRoom/>}/>
       <Route path='/room/edit/:id' element={<EditRoom/>}/>
+      <Route path='/NewBooking/:id' element={<NewBooking/>}/>
 
     </Routes>
     </Router>

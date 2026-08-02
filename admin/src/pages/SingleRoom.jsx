@@ -11,7 +11,7 @@ function SingleRoom() {
   const [room, setRoom] = useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate()
-
+  console.log(user)
   useEffect(() => {
     const getRoom = async () => {
       dispatch(reset())

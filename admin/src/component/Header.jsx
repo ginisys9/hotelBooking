@@ -13,32 +13,41 @@ function Header() {
       <Link to="/" className="text-decoration-none text-dark">
         <h1 className="m-0">Hotel Name</h1>
       </Link>
-      <nav className="d-flex gap-3">
-        <Link to="/" className="text-decoration-none text-dark">
-          Home
-        </Link>
-        {user ? (
-          <>
-           <Link to="/room" className="text-decoration-none text-dark">
-              Room
-            </Link>
-             <Link to="/create/room" className="text-decoration-none text-dark">
-              create
-            </Link>
-            <button onClick={handleLogOut} className="border-0">Logout</button>
-          </>
-        ) : (
-          <>
-        
-            <Link to="/login" className="text-decoration-none text-dark">
-              Login
-            </Link>
-            <Link to="/register" className="text-decoration-none text-dark">
-              Register
-            </Link>
-          </>
-        )}
-      </nav>
+     <nav className="d-flex gap-3">
+  <Link to="/" className="text-decoration-none text-dark">
+    Home
+  </Link>
+
+
+  {user ? (
+    <>
+      <Link to="/room" className="text-decoration-none text-dark">
+        Room
+      </Link>
+  <Link to="/dashboard" className="text-decoration-none text-dark">
+    Dashboard
+  </Link>
+
+      <Link to="/create/room" className="text-decoration-none text-dark">
+        create
+      </Link>
+
+      <button onClick={handleLogOut} className="border-0">
+        Logout
+      </button>
+    </>
+  ) : (
+    <>
+      <Link to="/login" className="text-decoration-none text-dark">
+        Login
+      </Link>
+
+      <Link to="/register" className="text-decoration-none text-dark">
+        Register
+      </Link>
+    </>
+  )}
+</nav>
     </div>
   );
 }
