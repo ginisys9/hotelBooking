@@ -29,5 +29,4 @@ function NewBooking() {
     </div>
   )
 }
-
 export default NewBooking
