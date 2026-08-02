@@ -29,22 +29,22 @@ A full-stack Hotel Booking System built using the MERN Stack. Users can register
 ## 📸 Screenshots
 
 ### Login Page
-![Login](./screenshots/login.png)
+![Login](./screenshot/login.png)
 
 ### Register Page
-![Register](./screenshots/register.png)
+![Register](./screenshot/register.png)
 
 ### Room Listing
-![Rooms](./screenshots/rooms.png)
+![Rooms](./screenshot/rooms.png)
 
 ### Create Room
-![Create Room](./screenshots/create-room.png)
+![Create Room](./screenshot/create-room.png)
 
 ### Dashboard
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard](./screenshot/dashboard.png)
 
 ### Booking Page
-![Booking](./screenshots/booking.png)
+![Booking](./screenshot/booking.png)
 
 ---
 
