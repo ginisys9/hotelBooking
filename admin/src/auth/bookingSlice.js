@@ -61,7 +61,28 @@ export const getBooking = createAsyncThunk(
     }
   }
 );
+//delete booking
 
+
+export const deleteBooking = createAsyncThunk(
+  "booking/delete",
+  async (id, thunkApi) => {
+    try {
+      const res = await fetch(`http://localhost:3000/booking/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+      return data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
 const bookingSlice = createSlice({
   name: "booking",
   initialState,
@@ -104,8 +125,28 @@ const bookingSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-      });
-  },
+      })
+      // delete booking
+     .addCase(deleteBooking.pending, (state) => {
+    state.isLoading = true;
+  })
+  .addCase(deleteBooking.fulfilled, (state, action) => {
+    state.isLoading = false;
+    state.isSuccess = true;
+
+    // Agar bookings array hai
+    state.bookings = state.bookings.filter(
+      (booking) => booking._id.toString() !== action.payload.id
+    );
+
+    state.message = action.payload.message;
+  })
+  .addCase(deleteBooking.rejected, (state, action) => {
+    state.isLoading = false;
+    state.isError = true;
+    state.message = action.payload;
+  })
+}
 });
 
 export const { reset } = bookingSlice.actions;

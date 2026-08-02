@@ -1,9 +1,13 @@
-import React from 'react'
+import img from "../image/img1.png";
 
 function Home() {
   return (
-    <div>Home</div>
-  )
+    <div id="home">
+      <div className="img-wra">
+        <img src={img} alt="Home" />
+      </div>
+    </div>
+  );
 }
 
-export default Home
+export default Home;

@@ -29,7 +29,7 @@ function BookingList({ data }) {
                   <Link
                     to={`/newBooking/${item._id}`}
                   className=" text-decoration-none text-black me-2">
-                    Edit
+                    View
                   </Link>
                 </td>
               </tr>
