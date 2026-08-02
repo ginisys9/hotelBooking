@@ -13,7 +13,7 @@ const createBooking = async (req,res)=>{
 }
 const getBooking = async (req,res) => {
     try {
-        const booking = await Booking.find().populate("roomId")
+        const booking = await Booking.find()
          return res.status(200).json(booking)
     } catch (error) {
            console.log(error.message)
@@ -38,7 +38,7 @@ const deleteBooking = async (req,res) => {
 }
 const singleBooking = async (req,res) => {
      try {
-          const booking = await Booking.findById(req.params.id).populate("roomId");
+          const booking = await Booking.findById(req.params.id);
           if (!booking) {
             return res.status(400).json({message:"booking not found"})
           }
